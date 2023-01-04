@@ -1,0 +1,91 @@
+\documentclass{amsart}
+
+\title{Symbolic experiment}
+\author{Finlay Thompson}
+
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\so}{\mathfrak{so}}
+\renewcommand{\P}{\underline{P}}
+\newcommand{\Q}{\underline{Q}}
+\newcommand{\End}{\mathrm{End}}
+
+
+\begin{document}
+\maketitle
+
+\section{Quaternions}
+
+The algebra of quaternions, $\HH$, naturally arises from the classification of
+central simple algebras over the field of real numbers, $\R$. It appears as the
+generator of the Brauer group of the real numbers:
+$$ Br(\R) = \Z_2 = \{\R, \HH\} $$
+Another way of expressing this is that the tensor product of the quaternions
+with themselves is a real matrix algebra.
+$$ \HH\otimes\HH = M(4, \R) $$
+
+More traditionally the algebra of quaternions is presented as the real associate
+algebra spanned by four symbols $\{1,i,j,k\}$, with the following relationships,
+$$ i^2 = j ^2 = k^2 = ijk = -1 $$
+
+The imaginary part of the quaternions, or the span of $\{i,j,k\}$, can be
+identified with the Lie algebra of three dimensional rotations, $\so(3)$, or
+with the standard three dimensional vector calculus of dot and cross products.
+If we write,
+$$ \HH = \R \oplus \so(3) $$
+then the product is expressed as:
+\begin{align*}
+  p \cdot q &= (p_0 + \P) \cdot (q_0 + \Q) \\
+            &= p_0q_0 - \P\cdot \Q + p_0\Q - q_0\P + [\P,\Q] \\
+            &= p_0q_0 - \P\cdot \Q + p_0\Q - q_0\P + \P\times \Q
+\end{align*}
+
+
+\section{Quaternion value functions}
+
+Let $U\subset\HH$ be a contractible open subset of $\HH$. In this section we are
+interested in smooth functions $f : U \to \HH$. As a real function $f$ has four
+components, each depending on four local variables.
+
+The usual definition of the differential $df$ is given as:
+\begin{align*}
+  df &: \mathfrak{X}(U) \to \HH \\
+     &: X \mapsto X(f)
+\end{align*}
+Where $X \in \mathfrak{X}(U)$ is a vector field defined on $U$. However, because
+$U$ is a contractible open subset, we can identify the tangent space with $\HH$:
+$$ TU = U \times \HH $$
+And the vector fields as:
+\begin{align*}
+\mathfrak{X}(U)
+    &= \Gamma(TU) \\
+    &= \Gamma(U \times \HH) \\
+    &= U \to \HH
+\end{align*}
+
+So, using the fact that the category of real vector spaces is Cartesian closed,
+the differential $df$ becomes:
+\begin{align*}
+  df &: \mathfrak{X}(U) \to \HH \\
+     &: (U \to \HH) \to \HH \\
+     &: U \to \End(\HH) \\
+     &: U \to \HH \otimes \HH^\circ
+\end{align*}
+
+%\emph{Some synthetic differential geometry here!}
+
+The last step makes use of the Brauer isomorphism,
+$$ \End(\HH) = M(4, \R) = \HH \otimes \HH^\circ $$
+which is defined in terms of elements $x,p,q\in\HH$ as:
+$$ (p\otimes q)(x) = p \cdot x \cdot q $$
+Notice that we need to use the opposite algebra on the right, which is
+isomorphic to to $\HH$, but has the product written the other way around.
+
+The Brauer isomorphism tells us that \emph{all} endomorphisms can be written
+this way, and so it is natural to ask what the components of the function $df$
+are, when expressed as an $\HH\otimes\HH^\circ$ valued function on $U$.
+
+
+
+\end{document}
