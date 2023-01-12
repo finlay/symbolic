@@ -75,6 +75,9 @@ the differential $df$ becomes:
 
 %\emph{Some synthetic differential geometry here!}
 
+
+\subsection{The Brauer isomorphism}
+
 The last step makes use of the Brauer isomorphism,
 $$ \End(\HH) = M(4, \R) = \HH \otimes \HH^\circ $$
 which is defined in terms of elements $x,p,q\in\HH$ as:
@@ -86,6 +89,25 @@ The Brauer isomorphism tells us that \emph{all} endomorphisms can be written
 this way, and so it is natural to ask what the components of the function $df$
 are, when expressed as an $\HH\otimes\HH^\circ$ valued function on $U$.
 
+The isomorphism can be written in local variables. We will use $x\in U\subset
+\HH$ as local variable in the domain space, and indexes for the individual
+components.
+\begin{align*}
+  x &= x_0 + \vec{X} \\
+    &= x_0\mathbf{e}^0 + x_1\mathbf{e}^1 + x_2\mathbf{e}^2 + x_3\mathbf{e}^3 \\
+    &= x_0\mathbf{1} + x_1\mathbf{i} + x_2\mathbf{j} + x_3\mathbf{k} \\
+\end{align*}
+where the $x_i$ are real numbers, and $X$ is an element of $\so(3)$.
 
+Any linear map $A \in \End(\HH) $ can be written
+\begin{align*}
+  A &= \sum_{ij} a_i^j \mathbf{e}^i \otimes \mathbf{\epsilon}_j \\
+    &= \(\begin{matrix}
+      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
+      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
+      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
+      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
+    \end{matrix}\)
+\end{align*}
 
 \end{document}
