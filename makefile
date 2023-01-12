@@ -1,4 +1,4 @@
-IMAGE := finlay/symbolic:v1
+IMAGE := finlay/symbolic:v2
 RUN ?= docker run -it --net host --rm \
 		-v $$PWD:/work -w /work \
 		-v $$HOME:/home \
