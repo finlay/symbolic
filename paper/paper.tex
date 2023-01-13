@@ -94,20 +94,20 @@ The isomorphism can be written in local variables. We will use $x\in U\subset
 components.
 \begin{align*}
   x &= x_0 + \vec{X} \\
-    &= x_0\mathbf{e}^0 + x_1\mathbf{e}^1 + x_2\mathbf{e}^2 + x_3\mathbf{e}^3 \\
-    &= x_0\mathbf{1} + x_1\mathbf{i} + x_2\mathbf{j} + x_3\mathbf{k} \\
+    &= x_0\boldsymbol{e}^0 + x_1\boldsymbol{e}^1 + x_2\boldsymbol{e}^2 + x_3\boldsymbol{e}^3 \\
+    &= x_0\boldsymbol{1} + x_1\boldsymbol{i} + x_2\boldsymbol{j} + x_3\boldsymbol{k} \\
 \end{align*}
-where the $x_i$ are real numbers, and $X$ is an element of $\so(3)$.
+where the $x_i$ are real numbers, and $\vec{X}$ is an element of $\so(3)$.
 
 Any linear map $A \in \End(\HH) $ can be written
 \begin{align*}
-  A &= \sum_{ij} a_i^j \mathbf{e}^i \otimes \mathbf{\epsilon}_j \\
-    &= \(\begin{matrix}
+  A &= \sum_{\mu\nu} a_\mu^\nu \boldsymbol{e}^\mu \otimes \boldsymbol{\epsilon}_\nu \\
+    &= \begin{pmatrix}
       a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
-      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
-      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
-      a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
-    \end{matrix}\)
+      a_0^1 & a_1^1 & a_2^1 & a_3^1 \\
+      a_0^2 & a_1^2 & a_2^2 & a_3^2 \\
+      a_0^3 & a_1^3 & a_2^3 & a_3^3 \\
+    \end{pmatrix}
 \end{align*}
 
 \end{document}
