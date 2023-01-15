@@ -10,6 +10,12 @@
 \renewcommand{\P}{\underline{P}}
 \newcommand{\Q}{\underline{Q}}
 \newcommand{\End}{\mathrm{End}}
+\newcommand{\e}{\boldsymbol{e}}
+\newcommand{\ep}{\boldsymbol{\epsilon}}
+\newcommand{\1}{\boldsymbol{1}}
+\renewcommand{\i}{\boldsymbol{i}}
+\renewcommand{\j}{\boldsymbol{j}}
+\renewcommand{\k}{\boldsymbol{k}}
 
 
 \begin{document}
@@ -94,20 +100,53 @@ The isomorphism can be written in local variables. We will use $x\in U\subset
 components.
 \begin{align*}
   x &= x_0 + \vec{X} \\
-    &= x_0\boldsymbol{e}^0 + x_1\boldsymbol{e}^1 + x_2\boldsymbol{e}^2 + x_3\boldsymbol{e}^3 \\
-    &= x_0\boldsymbol{1} + x_1\boldsymbol{i} + x_2\boldsymbol{j} + x_3\boldsymbol{k} \\
+    &= x_0\e^0 + x_1\e^1 + x_2\e^2 + x_3\e^3 \\
+    &= x_0\1 + x_1\i + x_2\j + x_3\k \\
 \end{align*}
 where the $x_i$ are real numbers, and $\vec{X}$ is an element of $\so(3)$.
 
-Any linear map $A \in \End(\HH) $ can be written
+Any linear map $A \in \End(\HH) $ can be written in components as
 \begin{align*}
-  A &= \sum_{\mu\nu} a_\mu^\nu \boldsymbol{e}^\mu \otimes \boldsymbol{\epsilon}_\nu \\
+  A &= \sum_{\mu\nu} a_\mu^\nu \e^\mu \otimes \ep_\nu \\
     &= \begin{pmatrix}
       a_0^0 & a_1^0 & a_2^0 & a_3^0 \\
       a_0^1 & a_1^1 & a_2^1 & a_3^1 \\
       a_0^2 & a_1^2 & a_2^2 & a_3^2 \\
       a_0^3 & a_1^3 & a_2^3 & a_3^3 \\
     \end{pmatrix}
+\end{align*}
+The $\ep_\nu$ symbol represents the dual linear function to $\e_\nu$ which is defined as
+$$\ep_\nu : \e^\mu \mapsto \delta_\nu^\mu$$
+In this case we are identifying $\End(\HH) = \HH\otimes\HH^*$.
+
+Similarly, any element of $L \in \HH\otimes\HH$ can be written as:
+\begin{align*}
+  L &= \sum_{\mu\nu} l_{\mu\nu} \e^\mu \otimes \e^\nu \\
+\end{align*}
+
+Writing the Brauer isomorphism as:
+\begin{align*}
+  \mathrm{Br} : \HH\otimes\HH^\circ &\to \End(\HH) \\
+      p \otimes q &\mapsto x \mapsto p\cdot x\cdot q
+\end{align*}
+\begin{align*}
+  p\cdot x\cdot q &= (p_\mu\e^\mu)\cdot(x_\alpha\e^\alpha)\cdot(q_\nu\e^\nu)\\
+  &= (p_\mu\e^\mu)\cdot(c^{\alpha\nu}_\beta x_\alpha q_\nu\e^\beta) \\
+  &= c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta p_\mu x_\alpha q_\nu\e^\gamma \\
+  &= c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta p_\mu q_\nu \e^\gamma\otimes\ep_\alpha (x)
+\end{align*}
+
+Extending to the whole of $\HH\otimes\HH$, and writing in components we get:
+$$ \mathrm{Br} : l_{\mu\nu}\e^\mu\otimes\e^\nu \mapsto
+                 c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta l_{\mu\nu}
+                 \e^\gamma\otimes\ep_\alpha $$
+
+
+Now, we can further understand $\mathrm{Br}$ by examining how it acts on basis
+elements.
+\begin{align*}
+  \1\otimes\1 &\mapsto + \e^0\otimes\ep_0 + \e^1\otimes\ep_1 + \e^2\otimes\ep_2 + \e^3\otimes\ep_3 \\
+  \i\otimes\1 &\mapsto - \e^0\otimes\ep_1 + \e^1\otimes\ep_0 - \e^2\otimes\ep_3 + \e^3\otimes\ep_2 \\
 \end{align*}
 
 \end{document}
