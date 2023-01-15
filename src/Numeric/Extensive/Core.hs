@@ -15,10 +15,13 @@ import Test.QuickCheck (Arbitrary)
 import qualified Test.QuickCheck as QC
 
 import Text.Printf
-import Numeric.Natural
 import Numeric.Algebra
 import Prelude hiding ((+), (-), (*), (^), negate, (>), (<), sum, fromInteger)
 import qualified Prelude
+
+class Tex a where
+  tex :: a -> String
+
 
 newtype R = R Double
     deriving (Num, Ord, Fractional,
@@ -85,7 +88,6 @@ instance Applicative T where
   T mf <*> T ma   = T $ \k -> mf $ \f -> ma $ k . f
 
 instance Monad T where
-    return x      = T $ \k -> k x
     (T x) >>= y   = T $ \k -> x $ \f -> let T yf = y f in yf k
 
 scale :: R  -> T a -> T a
@@ -181,6 +183,9 @@ instance (FiniteSet x, FiniteSet y) => FiniteSet (Hom x y) where
 
 instance (Show x, Show y) => Show (Tensor x y) where
     show (Tensor x y) = show x ++ " \x2297 " ++ show y
+
+instance (Tex x, Tex y) => Tex (Tensor x y) where
+    tex (Tensor x y) = tex x ++ " \\otimes " ++ tex y
 
 instance (Show x, Show y) => Show (Hom x y) where
     show (Hom x y) = show x ++ " \x21A6 " ++ show y

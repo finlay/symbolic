@@ -7,16 +7,15 @@ import Text.Printf
 
 import Numeric.Extensive.Core
 
-
-showInBasis :: (Show b, Eq b) => [b] -> T b -> String
-showInBasis bs v =
+dispInBasis :: Eq b => (b -> String) -> [b] -> T b -> String
+dispInBasis disp bs v =
         let coef (T v') = v' . delta
             pairs = [ (e, coef v e) | e <- bs ]
-            showPair (b, n) 
-               | n == " + 1" = " + "  ++ show b
-               | n == " - 1" = " - "  ++ show b
-               | otherwise   = n      ++ show b
-            showN (b, n') = 
+            showPair (b, n)
+               | n == " + 1" = " + "  ++ disp b
+               | n == " - 1" = " - "  ++ disp b
+               | otherwise   = n      ++ disp b
+            showN (b, n') =
                 let --n = (read $ printf "%0.5f" n' ) :: Double
                     n = n'
                     rn = round n :: Integer
@@ -24,7 +23,7 @@ showInBasis bs v =
                     sgn = if n > 0 then " + " else " - "
                     sn = if i then show (abs rn) else show (abs n)
                 in (b, sgn ++ sn)
-        in  case map (showPair . showN) . filter (\(_,n) -> n /= 0.0) $ pairs of 
+        in  case map (showPair . showN) . filter (\(_,n) -> n /= 0.0) $ pairs of
                   [] -> " 0"
                   ss -> concat ss
 
@@ -32,7 +31,17 @@ showInBasis bs v =
 instance (Eq a, FiniteSet a, Show a) => Show (T a) where
     show = showInBasis elements
 
-mkBox :: (FiniteSet a, FiniteSet b, Eq b, Eq a) 
+showInBasis :: (Show b, Eq b) => [b] -> T b -> String
+showInBasis = dispInBasis show
+
+
+instance (Eq a, FiniteSet a, Tex a) => Tex (T a) where
+    tex = texInBasis elements
+
+texInBasis :: (Tex b, Eq b) => [b] -> T b -> String
+texInBasis = dispInBasis tex
+
+mkBox :: (FiniteSet a, FiniteSet b, Eq b, Eq a)
       => T (Hom a b) -> Box
 mkBox m = box
       where
@@ -41,7 +50,7 @@ mkBox m = box
         cls = [ vsep 0 right (map (ts . snd) (coefficients (apply m e'))) | e' <- es]
         ts = text . printf "%0.4f"
 
-printMap :: (FiniteSet a, FiniteSet b, Eq b, Eq a) 
+printMap :: (FiniteSet a, FiniteSet b, Eq b, Eq a)
          =>  (T a -> T b) -> IO ()
 printMap  = putStrLn . render . mkBox . hom
 instance (FiniteSet a, FiniteSet b, Eq b, Eq a) => Show (T a -> T b) where

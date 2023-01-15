@@ -16,6 +16,9 @@ instance FiniteSet H where elements = [ E, I, J, K ]
 instance Show H where
     show E = "e" ; show I = "i"
     show J = "j" ; show K = "k"
+instance Tex H where
+    tex E = "\\1" ; tex I = "\\i"
+    tex J = "\\j" ; tex K = "\\k"
 instance Order H where
     order a b = Just (compare a b)
 
