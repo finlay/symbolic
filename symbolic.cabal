@@ -17,50 +17,31 @@ common warnings
     ghc-options: -Wall
 
 library
-    -- Import common warning flags.
-    import:           warnings
+    exposed-modules:     Numeric.Extensive
+                       , Numeric.Quaternion
+                       , Numeric.Extensive.Core
+                       , Numeric.Extensive.Inverse
+                       , Numeric.Extensive.Print
+    build-depends:       base,
+                         algebra,
+                         QuickCheck,
+                         mtl,
+                         pretty,
+                         boxes
+    hs-source-dirs:      src
 
-    -- Modules exported by the library.
-    exposed-modules:  Symbolic
-
-    -- Modules included in this library but not exported.
-    -- other-modules:
-
-    -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
-
-    -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.17.0.0
-                    , algebra
-                    , text
-
-    -- Directories containing source files.
-    hs-source-dirs:   src
-
-    -- Base language which the package is written in.
-    default-language: GHC2021
+    ghc-options: -Wall -fno-warn-name-shadowing -O3
+    default-language:    Haskell2010
 
 executable symbolic
-    -- Import common warning flags.
     import:           warnings
 
     main-is:          Main.hs
-
-    -- Modules included in this executable, other than Main.
-    -- other-modules:
-
-    -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
-
-    -- Other library packages from which modules are imported.
     build-depends:
         base ^>=4.17.0.0,
         symbolic,
         text
 
-    -- Directories containing source files.
     hs-source-dirs:   app
-
-    -- Base language which the package is written in.
     default-language: GHC2021
 
