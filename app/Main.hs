@@ -2,6 +2,9 @@
 module Main where
 
 import Prelude hiding ((+), (-), (*), (^), negate, (>), (<), sum, fromInteger)
+import System.Environment (getArgs)
+import System.Exit (exitFailure)
+import Data.List (sortOn, groupBy, intercalate)
 
 import Numeric.Quaternion hiding (x,y)
 import Numeric.Extensive
@@ -34,18 +37,72 @@ ep I = " \\ep_1 "
 ep J = " \\ep_2 "
 ep K = " \\ep_3 "
 
+e1 :: H -> String
+e1 E = " \\1 "
+e1 I = " \\i "
+e1 J = " \\j "
+e1 K = " \\k "
+
+
 instance Tex (Hom H H) where
     tex (Hom x y) = ee y ++ " \\otimes " ++ ep x
 
 
-main :: IO ()
-main = do
-  let stripPlus :: String -> String
-      stripPlus (' ':'+':rest) = rest
-      stripPlus rest = rest
-
+brauer :: IO ()
+brauer = do
   let showRow :: (Tex a, Tex b) =>  (a, b) -> String
       showRow (poq, res) =
         (stripPlus (tex poq)) <> " &= " <> tex res <> "\\\\"
 
   mapM_ (putStrLn . showRow) rows
+
+-- Expanding f = p \otimes q
+ps, qs, xs, fexp' :: [ (String, T H) ]
+ps = zip ["p_0", "p_1", "p_2", "p_3"] basis
+qs = zip ["q_0", "q_1", "q_2", "q_3"] basis
+xs = zip ["t", "x", "y", "z"] basis
+fexp' = [ (p <> " " <> x <> " " <> q, p2 * x2 * q2)
+       | (p, p2) <- ps
+       , (x, x2) <- xs
+       , (q, q2) <- qs ]
+
+fexp :: [ (String, H) ]
+fexp = [ (sc c s, b) | (s, v) <- fexp', (b, c) <- coef' v]
+  where
+    coef' = filter (\(_,c) -> c /= 0) . coefficients
+    sc c s
+      | c == 1.0   = " + " <> s
+      | c == -1.0  = " - " <> s
+      | otherwise  = (show c) <> s
+
+fcol :: [ ((String, String), H) ]
+fcol =
+  let fs = groupBy ( flip ((==) . snd ) . snd) (sortOn snd fexp)
+      cc :: ([String], [String]) -> (String, String)
+      cc (as, bs) = (concat as, concat bs)
+      cs = map (cc . splitAt 8 . map fst) fs
+      b = map (head . map snd ) fs
+  in zip cs b
+
+fexpand :: IO ()
+fexpand = do
+  let showRow :: ((String, String), H) -> String
+      showRow ((cs1, cs2), be) =
+        "(" <> (stripPlus cs1) <> "\\\\\n & " <> cs2 <> ")" <> e1 be <> "\\\\\n"
+  putStr $ "&= " <> (intercalate " &+ " $ map showRow fcol)
+
+
+stripPlus :: String -> String
+stripPlus (' ':'+':rest) = rest
+stripPlus rest = rest
+
+
+
+main :: IO ()
+main = do
+  args <- getArgs
+  case args of
+    ["brauer"]     -> brauer
+    ["fexpand"]    -> fexpand
+    _              -> exitFailure
+

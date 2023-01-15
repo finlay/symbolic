@@ -82,7 +82,7 @@ the differential $df$ becomes:
 %\emph{Some synthetic differential geometry here!}
 
 
-\subsection{The Brauer isomorphism}
+\section{The Brauer isomorphism}
 
 The last step makes use of the Brauer isomorphism,
 $$ \End(\HH) = M(4, \R) = \HH \otimes \HH^\circ $$
@@ -146,6 +146,32 @@ Now, we can further understand $\mathrm{Br}$ by examining how it acts on basis
 elements:
 \begin{align*}
   \input{brauer.tex}
+\end{align*}
+
+\section{Derivative of conformal map}
+
+Let $f : U \to \HH$ be defined as:
+$$ f : x \mapsto p\cdot x \cdot q$$
+Now we calculate $df : U \to \HH \otimes \HH$. To make things easier we write
+the four basis vectors fields as:
+$$ \partial_i = \frac{\partial}{\partial \e^i}$$
+Now the result of $df$ on a vector field $X = X^i\partial_i \in \mathfrak{X}(U)$
+is:
+\begin{align*}
+  df(X) &= X(f) \\
+   &= X(f(\e^0,\e^1,\e^2,\e^3)) \\
+   &= X^i\frac{\partial}{\partial \e_i} (f(\e^0,\e^1,\e^2,\e^3)) \\
+   &= X^i\frac{\partial}{\partial \e_i} (c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta p_\mu x_\alpha q_\nu\e^\gamma) \\
+   &= c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta X^i\frac{\partial}{\partial \e_i} (p_\mu x_\alpha q_\nu\e^\gamma) \\
+   &= c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta X^i\frac{\partial}{\partial \e_i} (p_\mu x_\alpha q_\nu) \e^\gamma \\
+   &= c^{\mu\beta}_\gamma c^{\alpha\nu}_\beta X^i(p_\mu q_\nu + \frac{\partial p_\mu}{\partial \e_i} q_\nu +  p_\mu\frac{\partial q_\nu}{\partial \e_i}) \e^\gamma \\
+\end{align*}
+
+Another go at this, remembering that $f(x) \in \HH$, and writing $\boldsymbol{x} = (t, x, y, z)$,
+\begin{align*}
+  f(\boldsymbol{x}) &= p \cdot \boldsymbol{x} \cdot q \\
+  &= (p_0\1 + p_1\i + p_2\j + p_3\k)\cdot(t\1 + x\i + y\j + z\k)\cdot(q_0\1 + q_1\i + q_2\j + q_3\k) \\
+  \input{fexpand.tex}
 \end{align*}
 
 \end{document}
