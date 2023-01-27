@@ -19,6 +19,7 @@ common warnings
 library
     exposed-modules:     Numeric.Extensive
                        , Numeric.Quaternion
+                       , Numeric.Symbolic
                        , Numeric.Extensive.Core
                        , Numeric.Extensive.Inverse
                        , Numeric.Extensive.Print
